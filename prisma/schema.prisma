@@ -16,5 +16,22 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  questions Question[]
+
   @@map("users")
+}
+
+model Question {
+  id String @id @default(uuid())
+  title String 
+  content String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updateAt DateTime @updatedAt @map("update_at")
+
+  userId String @map("user_id")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("questions")
 }
